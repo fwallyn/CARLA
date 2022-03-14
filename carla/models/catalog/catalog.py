@@ -5,7 +5,6 @@ import pandas as pd
 import tensorflow as tf
 import torch
 
-# from carla.data.catalog import DataCatalog
 from carla.data.catalog.online_catalog import DataCatalog, OnlineCatalog
 from carla.data.load_catalog import load
 from carla.models.api import MLModel
@@ -75,7 +74,6 @@ class MLModelCatalog(MLModel):
         self._continuous = data.continuous
         self._categorical = data.categorical
 
-        # TODO fix different encodings for different backends
         if self._backend == "pytorch":
             ext = "pt"
         elif self._backend == "tensorflow":
@@ -98,7 +96,12 @@ class MLModelCatalog(MLModel):
             self._catalog = catalog[model_type][self._backend]
             self._feature_input_order = self._catalog["feature_order"]
         else:
-            encoded_features = list(data.encoder.get_feature_names(data.categorical))
+            if data._identity_encoding:
+                encoded_features = data.categorical
+            else:
+                encoded_features = list(
+                    data.encoder.get_feature_names(data.categorical)
+                )
 
             self._catalog = None
             self._feature_input_order = list(
