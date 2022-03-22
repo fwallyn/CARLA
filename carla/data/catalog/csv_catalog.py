@@ -7,6 +7,28 @@ from .catalog import DataCatalog
 
 
 class CsvCatalog(DataCatalog):
+    """
+    Implements DataCatalog using local csv files. Using this class is the easiest way to use your own dataset.
+    Besides data transformation, no other preprocessing is done. E.g. the user should remove NaNs.
+
+    Parameters
+    ----------
+    file_path: str
+        Path of the csv file.
+    categorical: list[str]
+        List containing the column names of the categorical features.
+    continuous: list[str]
+        List containing the column names of the continuous features.
+    immutables: list[str]
+        List containing the column names of the immutable features.
+    target: str
+        Column name of the target.
+
+    Returns
+    -------
+    DataCatalog
+    """
+
     def __init__(
         self,
         file_path: str,
