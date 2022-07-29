@@ -120,7 +120,7 @@ class Revise(RecourseMethod):
 
         if vae_params["train"]:
             self.vae.fit(
-                xtrain=mlmodel.data.df[mlmodel.feature_input_order],
+                xtrain=mlmodel.data.df_train[mlmodel.feature_input_order],
                 lambda_reg=vae_params["lambda_reg"],
                 epochs=vae_params["epochs"],
                 lr=vae_params["lr"],

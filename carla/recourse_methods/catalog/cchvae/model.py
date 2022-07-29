@@ -110,7 +110,7 @@ class CCHVAE(RecourseMethod):
 
         vae_params = self._params["vae_params"]
         self._generative_model = self._load_vae(
-            self._mlmodel.data.df, vae_params, self._mlmodel, self._params["data_name"]
+            self._mlmodel.data.df_train, vae_params, self._mlmodel, self._params["data_name"]
         )
 
     def _load_vae(
